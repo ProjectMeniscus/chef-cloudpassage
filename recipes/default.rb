@@ -39,11 +39,20 @@ package "cphalo" do
     notifies :restart, "service[cphalod]", :immediately
 end
 
+start_command = "service cphalod start --daemon-key=#{node[:cloudpassage][:license_key]}"
+restart_command = "service cphalod restart --daemon-key=#{node[:cloudpassage][:license_key]}"
+
+if node[:cloudpassage][:server_tag]
+  start_command = "#{start_command} --tag=#{node[:cloudpassage][:server_tag]}"
+  restart_command = "#{restart_command} --tag=#{node[:cloudpassage][:server_tag]}"
+end
+
+"--tag="
 service "cphalod" do
-    start_command "sudo /etc/init.d/cphalod start --daemon-key=#{node[:cloudpassage][:license_key]}"
+    start_command start_command
     stop_command "service cphalod stop"
     status_command "service cphalod status"
-    restart_command "service cphalod restart --daemon-key=#{node[:cloudpassage][:license_key]}"
+    restart_command restart_command
     supports [:start, :stop, :status, :restart]
     #starts the service if it's not running and enables it to start at system boot time
     action [:enable, :start]

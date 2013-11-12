@@ -15,7 +15,7 @@ Tested on:
 
 Cookbooks
 ---------
-Requires `apt` - mmongo uses the apt cookbook to configure the 10gen apt-get repository
+Requires `apt` 
 
 Tested with:
 `apt` [cookbook](https://github.com/opscode-cookbooks/apt/commit/b58c75536300794e5b5ffa8747fc9e6c48a4e5ce) release v2.1.1
